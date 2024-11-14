@@ -1,0 +1,25 @@
+<h1>Lista de Usuários</h1>
+<a href="{% url 'criar_usuario' %}">Cadastrar novo usuário</a>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nome }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.telefone }}</td>
+                <td>
+                    <a href="{% url 'atualizar_usuario' usuario.id %}">Editar</a>
+                    <a href="{% url 'excluir_usuario' usuario.id %}">Excluir</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
