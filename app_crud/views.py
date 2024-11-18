@@ -29,14 +29,19 @@ def criar_usuario(request):
     return render(request, 'app_crud/criar_usuario.html')
 
 # Atualizar Usuário
-def atualizar_usuario(request, usuario_id):
-    usuario = get_object_or_404(Usuario, id=usuario_id)
+def atualizar_usuario(request, id):
+    # Usando 'id' para buscar o usuário
+    usuario = get_object_or_404(Usuario, id=id)
+
+    # Se a requisição for POST, atualiza os dados do usuário
     if request.method == 'POST':
         usuario.nome = request.POST.get('nome')
         usuario.email = request.POST.get('email')
         usuario.telefone = request.POST.get('telefone')
         usuario.save()
-        return redirect('listar_usuarios')
+        return redirect('listar_usuarios')  # Redireciona para a lista de usuários
+
+    # Se não for POST, renderiza o formulário de edição com os dados do usuário
     return render(request, 'app_crud/atualizar_usuario.html', {'usuario': usuario})
 
 # Exemplo de função para deletar um usuário
