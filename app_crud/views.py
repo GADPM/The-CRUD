@@ -1,7 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario
+from .forms import UsuarioForm
 
-# Listar Usuários
+# Criar um novo usuário
+def criar_usuario(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = UsuarioForm()
+    return render(request, 'app_crud/criar_usuario.html', {'form': form})
+
+# Listar todos os usuários
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'app_crud/listar_usuarios.html', {'usuarios': usuarios})
